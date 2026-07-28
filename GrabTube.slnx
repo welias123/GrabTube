@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GrabTube.App/GrabTube.App.csproj" />
+    <Project Path="src/GrabTube.Core/GrabTube.Core.csproj" />
+  </Folder>
+</Solution>

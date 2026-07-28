@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
+    <RootNamespace>GrabTube.Core</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>GrabTube.Core</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>welias123, Riverside1114</Authors>
+    <Description>A small, embeddable engine for downloading YouTube videos as MP4 or MP3.</Description>
+    <PackageTags>youtube;download;mp3;mp4;media</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="YoutubeExplode" Version="6.6.0" />
+  </ItemGroup>
+
+</Project>

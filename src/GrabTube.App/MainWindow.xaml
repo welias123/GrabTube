@@ -1,0 +1,124 @@
+<Window x:Class="GrabTube.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="GrabTube"
+        Width="460"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        WindowStyle="None"
+        Background="{StaticResource Paper}"
+        FontFamily="{StaticResource UiFont}"
+        UseLayoutRounding="True">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="0" GlassFrameThickness="0" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{StaticResource Line}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="OnTitleBarDrag">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource Chrome}" Content="&#xE921;" Click="OnMinimize" />
+                    <Button Style="{StaticResource CloseChrome}" Content="&#xE8BB;" Click="OnClose" />
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Margin="28,6,28,26">
+
+                <TextBlock FontFamily="{StaticResource DisplayFont}" FontSize="26" FontWeight="Bold">
+                    <Run Text="Grab" Foreground="{StaticResource Ink}" /><Run Text="Tube" Foreground="{StaticResource Accent}" />
+                </TextBlock>
+                <TextBlock Style="{StaticResource Caption}" Margin="0,2,0,22" Text="YouTube to MP4 or MP3" />
+
+                <TextBlock Style="{StaticResource Label}" Text="LINK" />
+                <Grid>
+                    <TextBox x:Name="UrlBox" Style="{StaticResource UrlBox}" TextChanged="OnUrlChanged" />
+                    <TextBlock IsHitTestVisible="False" Margin="15,0,0,0" VerticalAlignment="Center"
+                               FontSize="14" Foreground="#FF9CA3AF" Text="youtube.com/watch?v=...">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=UrlBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <TextBlock x:Name="PreviewText" Style="{StaticResource Caption}" Margin="2,9,0,0"
+                           Visibility="Collapsed" />
+
+                <TextBlock Style="{StaticResource Label}" Margin="0,20,0,7" Text="FORMAT" />
+                <Border Background="{StaticResource Surface}" CornerRadius="8" Padding="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <RadioButton x:Name="Mp4Option" Grid.Column="0" Style="{StaticResource Segment}"
+                                     GroupName="Format" Content="MP4" IsChecked="True" Checked="OnFormatChanged" />
+                        <RadioButton x:Name="Mp3Option" Grid.Column="1" Style="{StaticResource Segment}"
+                                     GroupName="Format" Content="MP3" Checked="OnFormatChanged" />
+                    </Grid>
+                </Border>
+
+                <TextBlock x:Name="QualityLabel" Style="{StaticResource Label}" Margin="0,18,0,7" Text="QUALITY" />
+                <Border x:Name="QualityPanel" Background="{StaticResource Surface}" CornerRadius="8" Padding="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <RadioButton x:Name="BestOption" Grid.Column="0" Style="{StaticResource Segment}"
+                                     GroupName="Quality" Content="Best" IsChecked="True" />
+                        <RadioButton x:Name="HdOption" Grid.Column="1" Style="{StaticResource Segment}"
+                                     GroupName="Quality" Content="720p" />
+                        <RadioButton x:Name="SdOption" Grid.Column="2" Style="{StaticResource Segment}"
+                                     GroupName="Quality" Content="360p" />
+                    </Grid>
+                </Border>
+
+                <TextBlock Style="{StaticResource Label}" Margin="0,18,0,7" Text="SAVE TO" />
+                <Border Background="{StaticResource Paper}" BorderBrush="{StaticResource Line}"
+                        BorderThickness="1" CornerRadius="8" Padding="14,6,6,6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="FolderText" Grid.Column="0" Style="{StaticResource Body}"
+                                   VerticalAlignment="Center" />
+                        <Button x:Name="ChangeFolderButton" Grid.Column="1" Style="{StaticResource Quiet}"
+                                Content="Change" Click="OnChangeFolder" />
+                    </Grid>
+                </Border>
+
+                <Button x:Name="ActionButton" Style="{StaticResource Primary}" Margin="0,22,0,0"
+                        Content="Download" Click="OnAction" />
+
+                <StackPanel x:Name="StatusPanel" Margin="0,20,0,0" Visibility="Collapsed">
+                    <ProgressBar x:Name="Meter" Style="{StaticResource Meter}" Minimum="0" Maximum="1" />
+                    <Grid Margin="0,10,0,0">
+                        <TextBlock x:Name="StatusText" Style="{StaticResource Caption}"
+                                   VerticalAlignment="Center" />
+                        <Button x:Name="OpenFolderButton" Style="{StaticResource Quiet}" Content="Open folder"
+                                HorizontalAlignment="Right" Margin="0,-6,-8,0" Visibility="Collapsed"
+                                Click="OnOpenFolder" />
+                    </Grid>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
